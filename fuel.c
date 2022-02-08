@@ -44,8 +44,6 @@ struct candidates target_fuel(char* romfile)
 boolean match_fuel_table(unsigned char buf[210])
 {
 	int i = 0;
-	unsigned short fuel_cell1 = ((float)buf[200] / 4) * buf[0];
-	unsigned short fuel_cell2 = ((float)buf[200] / 4) * buf[190];
 
 	for (i = 0; i < 200; i += 10)
 	{
@@ -67,7 +65,7 @@ boolean match_fuel_row(unsigned char buf[210], int start, int end)
 		fuel_cell1 = ((float)buf[200 + (i - start)] / 4) * buf[i];
 		fuel_cell2 = ((float)buf[200 + (i + 1 - start)] / 4) * buf[i + 1];
 
-		if (fuel_cell1 > fuel_cell2 || (fuel_cell1 == 0 && fuel_cell2 == 0) || (fuel_cell1 > 1024 || fuel_cell2 > 1024))
+		if ((float)fuel_cell2 / (float)fuel_cell1 < 0.95 || (fuel_cell1 == 0 || fuel_cell2 == 0) || (fuel_cell1 > 1024 || fuel_cell2 > 1024))
 			return false;
 	}
 
