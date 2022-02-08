@@ -28,6 +28,7 @@ int main(int argc, char** argv)
 	}
 
 	printf("[*] Target: %s\n", cdt.desc);
+	printf("[+] Success: %s\n", cdt.success ? "true" : "false");
 	printf("[+] Candidates count: %d\n\n", cdt.count);
 	for (int i = 0; i < cdt.count; i++)
 		printf("[+] Offset 0x%x\n", cdt.offset[i]);
