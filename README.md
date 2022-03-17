@@ -1,5 +1,5 @@
 # HEW
-HondaECUWalker is a small utility that walks through Honda OBD1 ECUs to find relevant data, like open loop fuel tables.
+HondaECUWalker is a small utility that walks through Honda OBD1 ECU ROM to find relevant data, like open loop fuel tables.
 
 ## Usage
 ```
