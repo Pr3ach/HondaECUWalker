@@ -9,6 +9,8 @@
 int main(int argc, char** argv)
 {
 	struct candidates cdt;
+	char target[16] = { 0 };
+	char rompath[32] = { 0 };
 
 	if (argc < 3)
 	{
@@ -16,20 +18,24 @@ int main(int argc, char** argv)
 		exit(-1);
 	}
 
-	if (!strcmp(argv[2], "fuel"))
+	strncpy_s(target, 16, argv[2], 15);
+	for (int i = 0; target[i]; target[i] = tolower(target[i]), i++);
+
+	strncpy_s(rompath, 32, argv[1], 31);
+
+	if (!strcmp(target, "fuel"))
 	{
-		cdt = target_fuel(argv[1]);
+		cdt = target_fuel(rompath);
 	}
 	else
 	{
-		printf("[!] Unknown target '%s'\n", argv[2]);
+		printf("[!] Unknown target '%s'\n", target);
 		usage(argv[0]);
 		exit(-1);
 	}
 
-	printf("[*] Target: %s\n", cdt.desc);
 	printf("[+] Success: %s\n", cdt.success ? "true" : "false");
-	printf("[+] Candidates count: %d\n\n", cdt.count);
+	printf("[+] Candidates count for '%s': %d\n\n", cdt.desc, cdt.count);
 	for (int i = 0; i < cdt.count; i++)
 		printf("[+] Offset 0x%x\n", cdt.offset[i]);
 
